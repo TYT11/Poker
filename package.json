@@ -1,0 +1,8 @@
+{
+  "name": "Poker Game",
+  "version": "0.0.1",
+  "description": "Test your memory!",
+  "dependencies": {
+    "bootstrap": "^4.6.0"
+  }
+}

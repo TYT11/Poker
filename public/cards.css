@@ -1,0 +1,236 @@
+body {
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.card-grid {
+  display: grid;
+  margin: 2rem auto;
+  grid-template-columns: repeat(8, 120px);
+  grid-template-rows: repeat(4, auto);
+  row-gap: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card-grid img {
+  display: block;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+  height: 150px;
+  position: relative;
+  margin: auto;
+  animation: fadeIn 1s forwards;
+}
+
+.cardCover,
+.cardBack {
+  position: absolute;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cardCover {
+  transition: all 0.5s;
+}
+
+.card.open .cardCover {
+  transform: rotateY(180deg);
+}
+
+.cardBack {
+  overflow: hidden;
+  transition: all 0.5s;
+  transform: rotateY(-180deg);
+}
+
+.card.open .cardBack {
+  transform: rotateY(0deg);
+}
+
+#bean {
+  width: 100px;
+  margin: 1rem;
+  margin-bottom: 0;
+}
+
+.mission-title {
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+#mission,
+#restart {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 290px;
+  height: 130px;
+  border-radius: 10px;
+  padding: 2rem;
+  border: 1px solid rgb(114, 114, 114);
+  background-color: rgb(255, 255, 255);
+}
+#restart {
+  visibility: hidden;
+}
+
+#accept,
+#restart-accept {
+  background-color: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 1.5rem 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#trigger {
+  display: flex;
+}
+
+#bean,
+.trigger-inner {
+  animation: fadeIn 1s forwards;
+}
+
+.trigger-inner {
+  width: 250px;
+  background-image: url(./img/speech-bubble.png);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 100% 100%; /* Resize the background image to cover the entire container */
+  margin: 0 2rem;
+}
+
+.trigger-text {
+  transform: translate(44px, 50px);
+}
+
+#error {
+  margin: 1rem 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: 0 1rem;
+    justify-content: space-around;
+  }
+  .card-grid {
+    grid-template-columns: repeat(6, 105px);
+    column-gap: 5px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    margin: 0 1rem;
+    justify-content: space-around;
+  }
+  .card-grid {
+    grid-template-columns: repeat(6, 80px);
+    column-gap: 10px;
+  }
+  .card {
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .container {
+    margin: 0 1rem;
+    justify-content: space-around;
+  }
+  .card-grid {
+    grid-template-columns: repeat(6, 67px);
+    column-gap: 10px;
+  }
+  .card {
+    height: 90px;
+  }
+  #bean {
+    width: 75px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .container {
+    margin: 0 1rem;
+    justify-content: space-around;
+  }
+  .card-grid {
+    grid-template-columns: repeat(6, 45px);
+    column-gap: 10px;
+  }
+  .card {
+    height: 63px;
+  }
+  .trigger-inner {
+    font-size: 14px;
+    width: 190px;
+    margin: 0 0.5rem;
+  }
+  .trigger-text {
+    transform: translate(28px, 39px);
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .container {
+    margin: 0 1rem;
+    justify-content: center;
+  }
+  .card-grid {
+    grid-template-columns: repeat(6, 35px);
+    column-gap: 10px;
+  }
+  .card {
+    height: 45px;
+  }
+
+  #bean {
+    width: 60px;
+    margin: 0rem;
+  }
+  .trigger-inner {
+    width: 195px;
+    margin: 0rem 0.2rem;
+  }
+  .trigger-text {
+    font-size: 12px;
+    transform: translate(30px, 26px);
+  }
+
+  #mission,
+  #restart {
+    width: 200px;
+  }
+}
