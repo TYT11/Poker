@@ -53,6 +53,9 @@ const triggers = [
   "到了再叫醒我。",
 ];
 const cardpool = document.getElementById("cardpool");
+const body = document.getElementsByTagName("body")[0];
+const trigger = document.getElementById("trigger");
+const mission = document.getElementById("mission");
 
 let currentMission = null;
 let currentTrigger = "";
@@ -67,7 +70,7 @@ function startGame() {
     document.querySelectorAll(".card").forEach((node) => node.remove());
   }
 
-  document.getElementsByTagName("body")[0].style.overflow = "hidden";
+  body.style.overflow = "hidden";
   const shuffledCards = shuffle(cards);
   assignMission();
   document.getElementById("accept").addEventListener("click", acceptChallenge);
@@ -83,8 +86,8 @@ function startGame() {
 
 function acceptChallenge() {
   challengeAccepted = true;
-  document.getElementsByTagName("body")[0].style.overflow = "auto";
-  document.getElementById("mission").style.visibility = "hidden";
+  body.style.overflow = "auto";
+  mission.style.visibility = "hidden";
   setTimeout(() => {
     document.querySelectorAll(".card").forEach((card) => {
       card.classList.remove("open");
@@ -114,14 +117,13 @@ function openCard() {}
 function handleMatch(e) {
   if (e.currentTarget.classList.contains("open") || unmatching || lost) return;
 
+  e.currentTarget.classList.add("open");
+
   if (openCards.length < 2) {
-    e.currentTarget.classList.add("open");
     openCards.push(e.currentTarget);
   }
 
   if (openCards.length === 2) {
-    e.currentTarget.classList.add("open");
-
     const firstCard = openCards[0].dataset.value;
     const secondCard = openCards[1].dataset.value;
 
@@ -136,15 +138,16 @@ function handleMatch(e) {
     } else {
       unmatching = true;
       errorTurns++;
+
       const error = document.getElementById("error");
       if (errorTurns <= currentMission) {
         assignTrigger();
-        error.innerHTML = `錯誤：${errorTurns}`;
       } else {
         gameOver();
         errorTurns = 0;
-        error.innerHTML = `錯誤：${errorTurns}`;
       }
+      error.innerHTML = `錯誤：${errorTurns}`;
+
       setTimeout(() => {
         handleUnmatch();
         unmatching = false;
@@ -161,7 +164,6 @@ function handleUnmatch() {
 }
 
 function assignMission() {
-  const mission = document.getElementById("mission");
   const missionNum = getRandom(missions);
   currentMission = missions[missionNum];
   mission.innerHTML = `<div class="mission-title">本次挑戰</div>10 秒看牌，錯誤 ${currentMission} 次內配對所有牌卡 <button id="accept">接受挑戰</button>`;
@@ -169,7 +171,6 @@ function assignMission() {
 }
 
 function assignTrigger() {
-  const trigger = document.getElementById("trigger");
   if (!errorTurns) {
     trigger.innerHTML = `<div></div>`;
     return;
@@ -188,11 +189,10 @@ function getRandom(arr) {
 }
 
 function gameOver() {
-  lost = true;
   const restart = document.getElementById("restart");
-  document.getElementById(
-    "trigger"
-  ).innerHTML = `<img id="bean" src=./public/svg/bean.svg><div class="trigger-inner"><div class="trigger-text">看來你不過如此而已！</div></div>`;
+  lost = true;
+  body.style.overflow = "hidden";
+  trigger.innerHTML = `<img id="bean" src=./public/svg/bean.svg><div class="trigger-inner"><div class="trigger-text">看來你不過如此而已！</div></div>`;
   restart.style.visibility = "visible";
   restart.innerHTML =
     '<div class="mission-title">幫你QQ</div>再挑戰一次？ <button id="restart-accept">重新開始</button>';
